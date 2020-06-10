@@ -161,7 +161,7 @@ To convert these HEX strings to a binary .crt format you can use any HEX to bina
 ```python
 import binascii
 filename = 'app.hex'
-with open(filename, 'rb') as f:
+with open(filename, 'r') as f:
    content = f.read()
 bin = binascii.unhexlify(content)
 with open ('app.crt', 'wb') as f:
