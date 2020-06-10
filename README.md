@@ -76,7 +76,7 @@ You can then provide either the HEX string or .crt file to MX as required.
 When you generated your apk file, one of the inputs was a Java keystore (.jks) file.  This .jks file is used as the input to the keytool utility as follows:
 
 ```
-keytool -exportcert -alias mykeyalias -file app.crt -keystore mykey.jks
+keytool -exportcert -alias mykeyalias -keystore mykey.jks -file app.crt
 ```
 
 Note: The .crt created by the above step will be identical to the .crt file output by Zebra's app signature tool, provided the apk was signed by the same key. 
@@ -88,7 +88,6 @@ import binascii
 filename = 'app.crt'
 with open(filename, 'rb') as f:
    content = f.read()
-print(binascii.hexlify(content))
 hex = binascii.hexlify(content).decode("utf-8").upper()
 with open ('app.hex', 'w') as f:
    f.write(hex)
@@ -116,7 +115,7 @@ CN: "CN=Android Debug,O=Android,C=US"
 Locate your debug.keystore file which by default will be in your HOME or USER directory/.android/debug.keystore
 
 ```
-keytool -exportcert -alias androiddebugkey -file debug.crt -keystore debug.keystore
+keytool -exportcert -alias androiddebugkey -keystore debug.keystore -file debug.crt
 ```
 
 You will be prompted for a password, as stated above, the password is `android`
@@ -164,7 +163,6 @@ import binascii
 filename = 'app.hex'
 with open(filename, 'rb') as f:
    content = f.read()
-print(binascii.unhexlify(content))
 bin = binascii.unhexlify(content)
 with open ('app.crt', 'wb') as f:
    f.write(bin)
