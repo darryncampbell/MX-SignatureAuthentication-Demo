@@ -52,7 +52,7 @@ There are 3 ways to obtain the package signature:
 
 Assuming you have a signed apk file you can invoke the signature tools utility as follows:
 
-**Note that you CAN NOT use the app signature tool to generate the signature of an app signed with the Google debug key**
+**Note that you CAN NOT use the app signature tool to generate the signature of an app signed with the Android debug key**
 
 Generate a HEX string
 
