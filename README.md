@@ -2,7 +2,7 @@
 
 *Samples of how to generate the caller or package signature which can be provided to Zebra's MX layer through StageNow or EMM (via Managed Configurations)*
 
-Zebra's [MX](https://techdocs.zebra.com/mx/) layer exposes configuration and provisioning capabilities for Zebra devices.  Because some of these features can be potentially misused by harmful apps, it is required to specify the signature of the signing certificate used to create the app to ensure only the desired app is given the elevated privileges.
+Zebra's [MX](https://techdocs.zebra.com/mx/) layer exposes configuration and provisioning capabilities for Zebra devices.  Some of these features can be potentially misused by harmful apps so in these cases it is required to specify the signature of the signing certificate used to create the app, this ensures that only the desired app is given the elevated privileges.
 
 Examples of MX functions that require you to specify the package signature are all found in the [AccessManager](https://techdocs.zebra.com/mx/accessmgr/) (at the time of writing) and include:
 
@@ -14,7 +14,7 @@ Examples of MX functions that require you to specify the package signature are a
 Examples of services that an application might want to call:
 
 - Event injection service: Used by remote desktop apps to inject keystrokes / taps into the device.
-- OEM Info: used to access many of the device identifier properties removed from standard Android APIs in version 10.
+- OEM Info: used to access many of the device identifier properties removed from standard Android APIs in Android 10.
 
 ## What is a package signature?
 
@@ -50,9 +50,9 @@ There are 3 ways to obtain the package signature:
 
 ### 1. Using [Zebra's App Signature Tools](https://techdocs.zebra.com/emdk-for-android/latest/samples/sigtools/) utility
 
-Assuming you have a signed apk file you can invoke the signature tools utility as follows:
+**Note that you CANNOT use the app signature tool to generate the signature of an app signed with the Android debug key**
 
-**Note that you CAN NOT use the app signature tool to generate the signature of an app signed with the Android debug key**
+Assuming you have a signed apk file you can invoke the signature tools utility as follows:
 
 Generate a HEX string
 
@@ -154,7 +154,7 @@ for (Signature sig : sigs)
 
 The above example(s) will output the signature in HEX format to logcat.
 
-**For obvious reasons, do not output the package signature to logcat in a production build**
+**It is not recommended to output the package signature to logcat in a production build**
 
 To convert these HEX strings to a binary .crt format you can use any HEX to binary conversion, e.g. the python script below:
 
