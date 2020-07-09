@@ -31,6 +31,7 @@ For more information on Android app signing please see the [Google documentation
 How you specify the signature to MX depends on which MX feature you are calling.  
 
 MX will require either:
+
 - A HEX string representation of the DER encoded certificate
 
 OR
@@ -48,7 +49,7 @@ There are 3 ways to obtain the package signature:
 3. Use the Android [Package Manager](https://developer.android.com/reference/android/content/pm/PackageManager) API to extract the signature at runtime 
 
 
-### 1. Using [Zebra's App Signature Tools](https://techdocs.zebra.com/emdk-for-android/latest/samples/sigtools/) utility
+### 1. Use [Zebra's App Signature Tools](https://techdocs.zebra.com/emdk-for-android/latest/samples/sigtools/) utility
 
 **Note that you CANNOT use the app signature tool to generate the signature of an app signed with the Android debug key**
 
