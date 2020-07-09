@@ -30,15 +30,13 @@ For more information on Android app signing please see the [Google documentation
 
 How you specify the signature to MX depends on which MX feature you are calling.  
 
-MX will require either:
-
-- A HEX string representation of the DER encoded certificate
-
-OR
+MX will require one of:
 
 - A certificate file encoded as a binary DER (.crt)
+- A HEX string representation of the DER encoded certificate contents
+- A Base64 string representation of the DER encoded certificate contents
 
-In either case, the data contained within the certificate represents the same thing, **the signature of the certificate that signed the app**
+In all cases, the data contained within the certificate represents the same thing, **the signature of the certificate that signed the app**
 
 ## How to obtain the Package Signature
 
@@ -55,18 +53,27 @@ There are 3 ways to obtain the package signature:
 
 Assuming you have a signed apk file you can invoke the signature tools utility as follows:
 
+Generate a certificate file encoded as a binary DER (.crt)
+
+```
+java -jar SigTools.jar getcert -inform apk -outform der -in app.apk -outfile app.crt
+```
+
 Generate a HEX string
 
 ```
 java -jar SigTools.jar getcert -inform apk -outform hex -in app.apk -outfile app.hex
 ```
 
-Generate a certificate file encoded as a binary DER (.crt)
+Generate a Base64 string
+
 ```
-java -jar SigTools.jar getcert -inform apk -outform der -in app.apk -outfile app.crt
+java -jar SigTools.jar getcert -inform apk -outform base64 -in app.apk -outfile app.base64
 ```
 
-You can then provide either the HEX string or .crt file to MX as required.
+You can then provide the .crt file or HEX / Base64 string to MX as required.
+
+*SigTools output is also written to the clipboard, enabling you to easily paste the string into StageNow if required*
 
 ### 2. Use the Java keytool utility to extract the certificate from the keystore
 
@@ -95,9 +102,32 @@ with open ('app.hex', 'w') as f:
    f.close()
 ```
 
-Note: The .hex file created by this conversion will match the .hex file output by Zebra's app signature tool, provided the apk was signed with the same key.
+And you can convert between the binary certificate and the Base64 representation using the following python script:
 
-You can then provide either the HEX string or .crt file to MX as required.
+```python
+import base64
+with open('app.crt', 'rb') as binary_file:
+  binary_file_data = binary_file.read()
+base64_encoded_data = base64.b64encode(binary_file_data)
+base64_message = base64_encoded_data.decode('utf-8')
+with open ('app.base64', 'w') as f:
+  f.write(base64_message)
+  f.close()
+```
+
+Note: The .hex or .base64 file created by this conversion will match the corresponding file output by Zebra's app signature tool, provided the apk was signed with the same key.
+
+You can then provide either the HEX string, Base64 string or .crt file to MX as required.
+
+**Conversion note**
+
+Whilst you **could** convert from the binary certificate to the Base64 form using the openssl tool, as follows:
+
+```
+openssl x509 -inform der -in certificatename.der -out certificatename.pem
+```
+
+The output would be slightly different, with additional line breaks, so it is easiest to use the python script given above.
 
 **Apps signed with the Android debug key**
 
