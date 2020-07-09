@@ -4,7 +4,7 @@
 
 Zebra's [MX](https://techdocs.zebra.com/mx/) layer exposes configuration and provisioning capabilities for Zebra devices.  Some of these features can be potentially misused by harmful apps so in these cases it is required to specify the signature of the signing certificate used to create the app, this ensures that only the desired app is given the elevated privileges.
 
-Examples of MX functions that require you to specify the package signature are all found in the [AccessManager](https://techdocs.zebra.com/mx/accessmgr/) (at the time of writing) and include:
+Examples of MX functions that require you to specify the package signature are all found in the [AccessManager](https://techdocs.zebra.com/mx/accessmgr/) & [AppManager](https://techdocs.zebra.com/mx/appmgr/) (at the time of writing) and include:
 
 - Whitelist which applications can run
 - Whitelist which applications can invoke MX capabilities through the [EMDK Profile Manager](https://techdocs.zebra.com/emdk-for-android/latest/guide/profile-manager-guides/)
