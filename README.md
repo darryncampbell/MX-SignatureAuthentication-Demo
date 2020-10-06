@@ -1,3 +1,6 @@
+*Please be aware that this application / sample is provided as-is for demonstration purposes without any guarantee of support*
+=========================================================
+
 # MX-SignatureAuthentication-Demo
 
 *Samples of how to generate the caller or package signature which can be provided to Zebra's MX layer through StageNow or EMM (via Managed Configurations)*
